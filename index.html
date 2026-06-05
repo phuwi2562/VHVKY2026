@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard ชมรม อสม.ตำบลคำใหญ่</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{--bg1:#100824;--bg2:#361068;--bg3:#0f766e;--card:rgba(255,255,255,.14);--card2:rgba(255,255,255,.22);--line:rgba(255,255,255,.22);--text:#fff;--muted:rgba(255,255,255,.78);--accent:#fbbf24;--good:#34d399;--pink:#fb7185;--cyan:#67e8f9;--shadow:0 24px 80px rgba(0,0,0,.28)}
+    *{box-sizing:border-box} body{margin:0;font-family:'Kanit',sans-serif;color:var(--text);min-height:100vh;background:radial-gradient(circle at top left,rgba(251,191,36,.30),transparent 28%),radial-gradient(circle at 80% 10%,rgba(103,232,249,.25),transparent 30%),linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3));overflow-x:hidden} body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent);pointer-events:none}.wrap{width:min(1320px,94vw);margin:auto;padding:28px 0 60px;position:relative;z-index:1}.panel{background:var(--card);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);backdrop-filter:blur(18px);overflow:hidden}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;margin-bottom:18px}.hero-main{padding:28px}.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid var(--line);font-size:14px;color:var(--muted)}h1{font-size:clamp(30px,4vw,54px);line-height:1.05;margin:16px 0 8px;font-weight:800}.lead{font-size:18px;color:var(--muted);margin:0 0 22px}.btn{border:0;border-radius:16px;padding:12px 16px;font-family:inherit;font-weight:700;cursor:pointer;color:#1f1530;background:linear-gradient(135deg,#fde68a,#fbbf24);box-shadow:0 10px 25px rgba(251,191,36,.25)}.btn.secondary{background:rgba(255,255,255,.14);color:#fff;border:1px solid var(--line);box-shadow:none}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}.hero-side{padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}.live-dot{width:11px;height:11px;border-radius:50%;background:var(--good);box-shadow:0 0 0 8px rgba(52,211,153,.15)}
+    .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:18px 0}.stat{padding:18px;border-radius:24px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(18px)}.stat .label{color:var(--muted);font-size:14px}.stat .num{font-size:30px;font-weight:800;margin-top:5px}.stat .sub{font-size:13px;color:var(--muted)}
+    .filters{padding:16px;display:grid;grid-template-columns:1.4fr repeat(5,1fr) auto;gap:12px;margin-bottom:18px}.field{width:100%;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.93);color:#1f2937;padding:13px 14px;font-family:inherit;font-size:15px;outline:none}.field:focus{box-shadow:0 0 0 4px rgba(251,191,36,.25)}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.chart-card{padding:18px;min-height:355px}.chart-card h3,.table-card h3{margin:0 0 12px;font-size:20px}.chart-box{height:285px}.insight{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}.insight-card{padding:18px;border-radius:24px;background:linear-gradient(135deg,rgba(255,255,255,.20),rgba(255,255,255,.10));border:1px solid var(--line)}.insight-card b{font-size:22px}.insight-card span{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+    .table-card{padding:18px}.table-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}.count-pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid var(--line);color:var(--muted)}.table-wrap{overflow:auto;border-radius:20px;border:1px solid var(--line);max-height:650px}table{width:100%;border-collapse:collapse;min-width:1050px;background:rgba(255,255,255,.94);color:#243044}th{position:sticky;top:0;background:#fff7ed;color:#7c2d12;text-align:left;font-weight:800;padding:13px;z-index:2}td{padding:12px 13px;border-top:1px solid #ececec}tr:hover td{background:#fff7ed}.avatar{width:38px;height:38px;border-radius:14px;display:inline-grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:#fff;font-weight:800;margin-right:8px}.namecell{display:flex;align-items:center;white-space:nowrap}.tag{display:inline-flex;padding:5px 10px;border-radius:999px;background:#ede9fe;color:#5b21b6;font-weight:700;font-size:12px}.phone a{color:#0369a1;text-decoration:none;font-weight:700}.empty{text-align:center;padding:35px;color:#fff;background:rgba(255,255,255,.08);border-radius:20px;display:none}.loader{display:grid;place-items:center;min-height:320px;color:var(--muted);font-size:18px}.spin{width:42px;height:42px;border-radius:50%;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;animation:spin 1s linear infinite;margin-bottom:12px}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:16px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:1100px){.stats{grid-template-columns:repeat(3,1fr)}.filters{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.insight{grid-template-columns:1fr}}@media(max-width:700px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr}.hero-main{padding:22px}.stat .num{font-size:26px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="panel hero-main">
+        <span class="badge">🩺 Dashboard Live · Google Sheet Connected</span>
+        <h1>ชมรม อสม.ตำบลคำใหญ่</h1>
+        <p class="lead">ระบบสารสนเทศรายชื่อ อสม. วิเคราะห์รายหมู่บ้าน พร้อม Dashboard อายุ การศึกษา และระยะเวลาเป็น อสม.</p>
+        <div class="hero-actions"><button class="btn" onclick="refreshData()">🔄 โหลดข้อมูลใหม่</button><button class="btn secondary" onclick="exportCSV()">⬇️ ส่งออก CSV</button></div>
+      </div>
+      <div class="panel hero-side">
+        <div style="display:flex;align-items:center;gap:12px"><span class="live-dot"></span><div><b>สถานะระบบ</b><div style="color:var(--muted);font-size:14px">เชื่อมต่อ Google Sheet</div></div></div>
+        <div><div style="font-size:14px;color:var(--muted)">อัปเดตล่าสุด</div><div id="updatedAt" style="font-size:28px;font-weight:800">-</div></div>
+        <div style="font-size:13px;color:var(--muted)">Sheet ID: 1ybtPvvV3cbzdB7fDFPu4Rov44eIWPaVxm87wX2mGgzE</div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><div class="label">อสม.ทั้งหมด</div><div class="num" id="totalAll">0</div><div class="sub">คน</div></div>
+      <div class="stat"><div class="label">ผลลัพธ์ที่แสดง</div><div class="num" id="totalFiltered">0</div><div class="sub">ตามตัวกรอง</div></div>
+      <div class="stat"><div class="label">จำนวนหมู่บ้าน</div><div class="num" id="totalVillage">0</div><div class="sub">หมู่บ้าน</div></div>
+      <div class="stat"><div class="label">เขตบริการ</div><div class="num" id="totalZone">0</div><div class="sub">เขต</div></div>
+      <div class="stat"><div class="label">อายุเฉลี่ย</div><div class="num" id="avgAge">-</div><div class="sub">ปี</div></div>
+      <div class="stat"><div class="label">เป็น อสม.เฉลี่ย</div><div class="num" id="avgDuration">-</div><div class="sub">ปี</div></div>
+    </section>
+
+    <section class="panel filters">
+      <input id="search" class="field" placeholder="🔎 ค้นหา ชื่อ / เบอร์โทร / บ้านเลขที่ / การศึกษา" oninput="applyFilters()">
+      <select id="villageFilter" class="field" onchange="applyFilters()"><option value="">ทุกหมู่บ้าน</option></select>
+      <select id="zoneFilter" class="field" onchange="applyFilters()"><option value="">ทุกเขต</option></select>
+      <select id="eduFilter" class="field" onchange="applyFilters()"><option value="">ทุกการศึกษา</option></select>
+      <select id="ageFilter" class="field" onchange="applyFilters()"><option value="">ทุกช่วงอายุ</option></select>
+      <select id="durationFilter" class="field" onchange="applyFilters()"><option value="">ทุกระยะเวลา</option></select>
+      <button class="btn secondary" onclick="clearFilters()">ล้างตัวกรอง</button>
+    </section>
+
+    <section id="loader" class="panel loader"><div><div class="spin"></div>กำลังโหลดข้อมูลจาก Google Sheet...</div></section>
+
+    <section id="content" style="display:none">
+      <section class="insight">
+        <div class="insight-card">🏆 <b id="topVillage">-</b><span>หมู่บ้านที่มี อสม. มากที่สุดตามตัวกรอง</span></div>
+        <div class="insight-card">🎓 <b id="topEdu">-</b><span>ระดับการศึกษาที่พบมากที่สุด</span></div>
+        <div class="insight-card">⏳ <b id="topDuration">-</b><span>กลุ่มประสบการณ์ที่พบมากที่สุด</span></div>
+      </section>
+
+      <div class="grid">
+        <div class="panel chart-card"><h3>📊 จำนวน อสม. รายหมู่บ้าน</h3><div class="chart-box"><canvas id="villageChart"></canvas></div></div>
+        <div class="panel chart-card"><h3>🏛️ สัดส่วนตามเขตบริการ</h3><div class="chart-box"><canvas id="zoneChart"></canvas></div></div>
+      </div>
+      <div class="grid three">
+        <div class="panel chart-card"><h3>🎂 Dashboard ช่วงอายุ</h3><div class="chart-box"><canvas id="ageChart"></canvas></div></div>
+        <div class="panel chart-card"><h3>🎓 Dashboard การศึกษา</h3><div class="chart-box"><canvas id="educationChart"></canvas></div></div>
+        <div class="panel chart-card"><h3>⏳ Dashboard ระยะเวลาเป็น อสม.</h3><div class="chart-box"><canvas id="durationChart"></canvas></div></div>
+      </div>
+
+      <section class="panel table-card">
+        <div class="table-head"><h3>👥 รายชื่อ อสม.</h3><span class="count-pill" id="tableCount">0 รายการ</span></div>
+        <div class="table-wrap"><table><thead><tr><th>ลำดับ</th><th>ชื่อ - สกุล</th><th>ตำแหน่ง</th><th>หมู่</th><th>บ้านเลขที่</th><th>อายุ</th><th>การศึกษา</th><th>ระยะเวลาเป็น อสม.</th><th>เบอร์โทร</th><th>เขต</th></tr></thead><tbody id="tbody"></tbody></table></div>
+        <div class="empty" id="empty">ไม่พบข้อมูลตามเงื่อนไขที่เลือก</div>
+      </section>
+    </section>
+    <div class="footer">พัฒนาเพื่อสนับสนุนงาน อสม.ตำบลคำใหญ่ · Mobile Friendly · Realtime Dashboard</div>
+  </main>
+<script>
+let rawRows=[],filteredRows=[]; let villageChart,zoneChart,ageChart,educationChart,durationChart;
+const AGE_ORDER=['ต่ำกว่า 30 ปี','30-39 ปี','40-49 ปี','50-59 ปี','60-69 ปี','70 ปีขึ้นไป','ไม่ระบุอายุ'];
+const DUR_ORDER=['น้อยกว่า 5 ปี','5-9 ปี','10-14 ปี','15-19 ปี','20-24 ปี','25 ปีขึ้นไป','ไม่ระบุระยะเวลา'];
+function init(){refreshData()}
+function refreshData(){document.getElementById('loader').style.display='grid';document.getElementById('content').style.display='none';google.script.run.withSuccessHandler(res=>{rawRows=(res&&res.rows)?res.rows:[];document.getElementById('updatedAt').textContent=res?.meta?.updatedAt||'-';buildFilters();applyFilters();document.getElementById('loader').style.display='none';document.getElementById('content').style.display='block'}).withFailureHandler(err=>{document.getElementById('loader').innerHTML='<div>⚠️ โหลดข้อมูลไม่สำเร็จ<br><small>'+(err.message||err)+'</small></div>'}).getDashboardData()}
+function uniq(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'th',{numeric:true}))}
+function fillSelect(id,values,prefix){const el=document.getElementById(id);el.innerHTML=`<option value="">${prefix}</option>`+values.map(v=>`<option value="${escapeAttr(v)}">${escapeHtml(v)}</option>`).join('')}
+function buildFilters(){fillSelect('villageFilter',uniq(rawRows.map(r=>r.villageNo)).map(v=>'หมู่ '+v),'ทุกหมู่บ้าน');fillSelect('zoneFilter',uniq(rawRows.map(r=>r.zone)),'ทุกเขต');fillSelect('eduFilter',uniq(rawRows.map(r=>r.education)),'ทุกการศึกษา');fillSelect('ageFilter',AGE_ORDER.filter(x=>rawRows.some(r=>r.ageGroup===x)),'ทุกช่วงอายุ');fillSelect('durationFilter',DUR_ORDER.filter(x=>rawRows.some(r=>r.durationGroup===x)),'ทุกระยะเวลา')}
+function applyFilters(){const q=document.getElementById('search').value.trim().toLowerCase();const village=document.getElementById('villageFilter').value.replace('หมู่ ','');const zone=document.getElementById('zoneFilter').value;const edu=document.getElementById('eduFilter').value;const age=document.getElementById('ageFilter').value;const dur=document.getElementById('durationFilter').value;filteredRows=rawRows.filter(r=>(!q||(r.searchText||'').includes(q))&&(!village||String(r.villageNo)===village)&&(!zone||r.zone===zone)&&(!edu||r.education===edu)&&(!age||r.ageGroup===age)&&(!dur||r.durationGroup===dur));renderStats();renderTable();renderCharts();renderInsights()}
+function clearFilters(){['search','villageFilter','zoneFilter','eduFilter','ageFilter','durationFilter'].forEach(id=>document.getElementById(id).value='');applyFilters()}
+function avg(rows,key){const nums=rows.map(r=>Number(r[key])).filter(n=>!isNaN(n));return nums.length?(nums.reduce((a,b)=>a+b,0)/nums.length).toFixed(1):'-'}
+function renderStats(){document.getElementById('totalAll').textContent=rawRows.length.toLocaleString('th-TH');document.getElementById('totalFiltered').textContent=filteredRows.length.toLocaleString('th-TH');document.getElementById('totalVillage').textContent=uniq(rawRows.map(r=>r.villageNo)).length;document.getElementById('totalZone').textContent=uniq(rawRows.map(r=>r.zone)).length;document.getElementById('avgAge').textContent=avg(filteredRows,'ageYears');document.getElementById('avgDuration').textContent=avg(filteredRows,'durationYears');document.getElementById('tableCount').textContent=filteredRows.length.toLocaleString('th-TH')+' รายการ'}
+function renderTable(){const tbody=document.getElementById('tbody'),empty=document.getElementById('empty');empty.style.display=filteredRows.length?'none':'block';tbody.innerHTML=filteredRows.map((r,i)=>`<tr><td>${escapeHtml(r.no||i+1)}</td><td><div class="namecell"><span class="avatar">${escapeHtml((r.name||'?').slice(0,1))}</span><b>${escapeHtml(r.name||'-')}</b></div></td><td>${escapeHtml(r.position||'-')}</td><td><span class="tag">หมู่ ${escapeHtml(r.villageNo||'-')}</span></td><td>${escapeHtml(r.houseNo||'-')}</td><td>${escapeHtml(r.ageText||'-')}</td><td>${escapeHtml(r.education||'-')}</td><td>${escapeHtml(r.workDuration||'-')}</td><td class="phone">${r.phone?`<a href="tel:${r.phone}">${formatPhone(r.phone)}</a>`:'-'}</td><td>${escapeHtml(r.zone||'-')}</td></tr>`).join('')}
+function countBy(rows,key){return rows.reduce((a,r)=>{const k=r[key]||'-';a[k]=(a[k]||0)+1;return a},{})}
+function orderedCount(key,order){const obj=countBy(filteredRows,key);const labels=order?order.filter(k=>obj[k]):Object.keys(obj);return {labels,data:labels.map(k=>obj[k])}}
+function chartOptions(){return {responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#fff',font:{family:'Kanit'}}}},scales:{x:{ticks:{color:'#fff',font:{family:'Kanit'}},grid:{color:'rgba(255,255,255,.08)'}},y:{ticks:{color:'#fff',font:{family:'Kanit'}},grid:{color:'rgba(255,255,255,.08)'},beginAtZero:true}}}}
+function renderCharts(){const vObj=countBy(filteredRows,'villageNo');const vKeys=Object.keys(vObj).sort((a,b)=>Number(a)-Number(b));const vLabels=vKeys.map(v=>'หมู่ '+v),vData=vKeys.map(v=>vObj[v]);const z=countBy(filteredRows,'zone'),zLabels=Object.keys(z),zData=zLabels.map(k=>z[k]);const age=orderedCount('ageGroup',AGE_ORDER);const edu=orderedCount('education');const dur=orderedCount('durationGroup',DUR_ORDER);if(villageChart)villageChart.destroy();villageChart=new Chart(document.getElementById('villageChart'),{type:'bar',data:{labels:vLabels,datasets:[{label:'จำนวน อสม.',data:vData,borderRadius:12}]},options:chartOptions()});if(zoneChart)zoneChart.destroy();zoneChart=new Chart(document.getElementById('zoneChart'),{type:'doughnut',data:{labels:zLabels,datasets:[{data:zData,borderWidth:0}]},options:doughnutOptions()});if(ageChart)ageChart.destroy();ageChart=new Chart(document.getElementById('ageChart'),{type:'bar',data:{labels:age.labels,datasets:[{label:'จำนวน',data:age.data,borderRadius:12}]},options:chartOptions()});if(educationChart)educationChart.destroy();educationChart=new Chart(document.getElementById('educationChart'),{type:'doughnut',data:{labels:edu.labels,datasets:[{data:edu.data,borderWidth:0}]},options:doughnutOptions()});if(durationChart)durationChart.destroy();durationChart=new Chart(document.getElementById('durationChart'),{type:'bar',data:{labels:dur.labels,datasets:[{label:'จำนวน',data:dur.data,borderRadius:12}]},options:chartOptions()})}
+function doughnutOptions(){return {responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#fff',font:{family:'Kanit'}}}}}}
+function topLabel(key,prefix=''){const obj=countBy(filteredRows,key);const entries=Object.entries(obj).sort((a,b)=>b[1]-a[1]);return entries.length?`${prefix}${entries[0][0]} (${entries[0][1]} คน)`:'-'}
+function renderInsights(){document.getElementById('topVillage').textContent=topLabel('villageNo','หมู่ ');document.getElementById('topEdu').textContent=topLabel('education');document.getElementById('topDuration').textContent=topLabel('durationGroup')}
+function exportCSV(){const headers=['ลำดับ','ชื่อ - สกุล','ตำแหน่ง','หมู่ที่','บ้านเลขที่','อายุ','การศึกษา','ระยะเวลาเป็น อสม.','เบอร์โทร','เขต'];const lines=[headers.join(',')].concat(filteredRows.map(r=>[r.no,r.name,r.position,r.villageNo,r.houseNo,r.ageText,r.education,r.workDuration,r.phone,r.zone].map(csv).join(',')));const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='asm-khamyai-dashboard.csv';a.click();URL.revokeObjectURL(url)}
+function csv(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}function escapeHtml(v){return String(v??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}function escapeAttr(v){return escapeHtml(v).replace(/'/g,'&#39;')}function formatPhone(p){return p.length===10?p.replace(/(\d{3})(\d{3})(\d{4})/,'$1-$2-$3'):p}window.addEventListener('load',init);
+</script>
+</body>
+</html>
